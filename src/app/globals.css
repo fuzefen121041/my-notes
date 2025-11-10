@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
   --background: #ffffff;
@@ -22,5 +23,81 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC",
+    "Microsoft YaHei", "Helvetica Neue", Arial, "Noto Sans", "Hiragino Sans GB",
+    "Source Han Sans SC", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
+  font-size: 18px; /* 掘金接近的基础字号 */
+  line-height: 1.75;
 }
+
+/* 掘金风格的文档排版（Typography） */
+.prose { max-width: none; }
+.prose :where(h1){
+  font-size: 2rem; /* ~32px */
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+.prose :where(h2){
+  font-size: 1.625rem; /* ~26px */
+  line-height: 1.3;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+.prose :where(h3){
+  font-size: 1.25rem; /* ~20px */
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+.prose :where(p){
+  font-size: 1.1rem; /* ~18px 提升可读性 */
+  color: #1D2129; /* 掘金正文颜色 */
+}
+.prose :where(ul){ padding-left: 1.25rem; }
+.prose :where(ol){ padding-left: 1.25rem; }
+.prose :where(li){ margin: 0.25rem 0; }
+.prose :where(li){ margin: 0.25rem 0; }
+.prose :where(a){ color: #1E80FF; text-decoration: none; }
+.prose :where(a:hover){ text-decoration: underline; }
+.prose :where(code){
+  background: #F7F8FA;
+  color: #4E5969;
+  padding: 0.15rem 0.35rem;
+  border-radius: 6px;
+}
+.prose :where(pre){
+  border-radius: 10px;
+  background: #F7F8FA;
+  border: 1px solid #E5E6EB; /* 掘金卡片边框色 */
+}
+.prose :where(hr){
+  border: none;
+  border-top: 1px solid #E5E6EB;
+  margin: 1.5rem 0;
+}
+.prose :where(blockquote){
+  border-left: 4px solid #1E80FF;
+  padding-left: 1rem;
+  color: #4E5969; /* 次级正文 */
+}
+.prose :where(table){ border-collapse: collapse; }
+.prose :where(th), .prose :where(td){
+  border: 1px solid #e5e7eb; /* zinc-200 */
+  padding: 0.5rem 0.75rem;
+}
+
+/* 标题锚链接微调 */
+.anchor{ text-decoration: none; }
+.anchor:hover{ text-decoration: underline; }
+
+/* Tag badges (掘金风格间距与尺寸) */
+.tag-badges{ display:flex; flex-wrap:wrap; gap: 8px; }
+.tag-badge{ display:inline-flex; align-items:center; font-size:13px; line-height:20px; padding:2px 10px; border-radius:6px; border:1px solid #E5E6EB; background:#F5F7FA; color:#86909C; }
+.tag-blue{ background:#E8F3FF; border-color:#CDE3FF; color:#1E80FF; }
+.tag-purple{ background:#F3E8FF; border-color:#E1CFFF; color:#7C4DFF; }
+.tag-green{ background:#E8FFEA; border-color:#CDECCF; color:#00B578; }
+.tag-amber{ background:#FFF7E8; border-color:#FFE3A3; color:#FA8C16; }
+.tag-magenta{ background:#FFE8F1; border-color:#FFC3D8; color:#F5317F; }
+.tag-gray{ background:#F5F7FA; border-color:#E5E6EB; color:#86909C; }
