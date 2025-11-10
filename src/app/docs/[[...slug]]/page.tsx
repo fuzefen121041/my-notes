@@ -7,8 +7,8 @@ export const revalidate = 0;
 
 type Params = { slug?: string[] };
 
-export default async function Page({ params }: { params: Promise<Params> }) {
-  const p = await params;
+export default async function Page({ params }: { params: Params }) {
+  const p = params;
   if (!p.slug || p.slug.length === 0) {
     const first = findFirstDocSlug();
     if (first) {

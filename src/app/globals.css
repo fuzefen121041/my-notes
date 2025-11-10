@@ -68,9 +68,12 @@ body {
   border-radius: 6px;
 }
 .prose :where(pre){
-  border-radius: 10px;
-  background: #F7F8FA;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #F7F8FA, #F5F7FA);
   border: 1px solid #E5E6EB; /* 掘金卡片边框色 */
+  box-shadow: 0 6px 16px rgba(24, 39, 75, 0.08);
+  padding: 0.75rem 1rem;
+  overflow: auto;
 }
 .prose :where(hr){
   border: none;
@@ -79,8 +82,11 @@ body {
 }
 .prose :where(blockquote){
   border-left: 4px solid #1E80FF;
-  padding-left: 1rem;
-  color: #4E5969; /* 次级正文 */
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  background: #E8F3FF;
+  color: #344051; /* 次级正文更深一些 */
+  border-radius: 8px;
 }
 .prose :where(table){ border-collapse: collapse; }
 .prose :where(th), .prose :where(td){
@@ -91,6 +97,25 @@ body {
 /* 标题锚链接微调 */
 .anchor{ text-decoration: none; }
 .anchor:hover{ text-decoration: underline; }
+
+/* rehype-pretty-code 样式增强 */
+.prose pre code{ display:block; font-size:0.95rem; }
+.prose pre code .line{ display:block; min-height:1.25rem; }
+.prose pre code .line--highlighted{ background: rgba(30,128,255,0.08); border-left: 3px solid #1E80FF; }
+.prose pre code .word{ background: rgba(30,128,255,0.12); }
+
+@media (prefers-color-scheme: dark) {
+  .prose :where(pre){
+    background: linear-gradient(180deg, #0f172a, #0b1020);
+    border-color: #1f2937;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+  }
+  .prose :where(blockquote){
+    background: #0b1221;
+    color: #cbd5e1;
+    border-color: #1E80FF;
+  }
+}
 
 /* Tag badges (掘金风格间距与尺寸) */
 .tag-badges{ display:flex; flex-wrap:wrap; gap: 8px; }

@@ -8,6 +8,7 @@ import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypePrettyCode from 'rehype-pretty-code';
 import { visit } from 'unist-util-visit';
 import GithubSlugger from 'github-slugger';
 import { getNotionDoc, listNotionDatabase } from './notion';
@@ -237,6 +238,13 @@ async function renderMarkdown(content: string, data: any, fallbackTitle: string,
       });
     })
     .use(remarkRehype)
+    .use(rehypePrettyCode, {
+      theme: {
+        light: 'github-light',
+        dark: 'github-dark',
+      },
+      keepBackground: false,
+    })
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings, { behavior: 'wrap', properties: { className: ['anchor'] } })
     .use(rehypeStringify);

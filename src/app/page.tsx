@@ -1,7 +1,25 @@
+"use client";
 import Link from 'next/link';
 import { projects } from '@/data/projects';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { ChevronDownIcon } from '@radix-ui/react-icons';
+import { useEffect, useState } from 'react';
+
+type Category = { slug: string; label: string; count?: number };
 
 export default function Home() {
+  const [categories, setCategories] = useState<Category[] | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/categories')
+      .then((r) => r.json())
+      .then((json) => {
+        if (!cancelled && Array.isArray(json.categories)) setCategories(json.categories);
+      })
+      .catch(() => {
+      });
+    return () => { cancelled = true; };
+  }, []);
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-[#0f172a] via-[#111827] to-[#0b1020] text-white">
       {/* Top Nav */}
@@ -12,10 +30,30 @@ export default function Home() {
             <span className="text-lg font-semibold tracking-wide">My Notes & Projects</span>
           </div>
           <nav className="hidden sm:flex items-center gap-6 text-sm text-zinc-300">
-            <Link href="/frontend" className="hover:text-white">Frontend</Link>
-            <Link href="/algorithms" className="hover:text-white">Algorithms</Link>
-            <Link href="/misc" className="hover:text-white">Misc</Link>
-            <Link href="/docs" className="hover:text-white">Docs</Link>
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger asChild>
+                <button className="inline-flex items-center gap-1 px-2 py-1 rounded hover:text-white hover:bg-white/5 transition-colors">
+                  学习笔记
+                  <ChevronDownIcon className="h-4 w-4" />
+                </button>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content sideOffset={8} className="min-w-[220px] overflow-hidden rounded-lg border border-white/10 bg-[#0f172a] text-zinc-200 shadow-xl">
+                <DropdownMenu.Label className="px-3 py-2 text-xs uppercase tracking-wide text-zinc-400">分类</DropdownMenu.Label>
+                {(categories ?? []).map((c) => (
+                  <DropdownMenu.Item key={c.slug} asChild>
+                    <Link href={`/${c.slug}`} className="flex items-center justify-between px-3 py-2 hover:bg-white/5 hover:text-white">
+                      <span>{c.label}</span>
+                      {typeof c.count === 'number' && (
+                        <span className="ml-3 inline-flex h-5 min-w-[20px] items-center justify-center rounded bg-white/10 text-xs text-zinc-300">{c.count}</span>
+                      )}
+                    </Link>
+                  </DropdownMenu.Item>
+                ))}
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
+            <Link href="#" className="hover:text-white">课程作业</Link>
+            <Link href="#" className="hover:text-white">会议记录</Link>
+            <Link href="#" className="hover:text-white">常用网址</Link>
           </nav>
         </div>
       </header>
