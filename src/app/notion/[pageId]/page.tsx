@@ -3,8 +3,8 @@ import NotionPageClient from './Client';
 
 export const revalidate = 0;
 
-export default function NotionPage({ params }: { params: { pageId: string } }) {
-  const { pageId } = params;
+export default async function NotionPage({ params }: { params: Promise<{ pageId: string }> }) {
+  const { pageId } = await params;
   return (
     <div className="h-screen flex flex-col overflow-hidden">
       <header className="sticky top-0 z-10 border-b border-zinc-200 dark:border-zinc-700 bg-[var(--background)]">

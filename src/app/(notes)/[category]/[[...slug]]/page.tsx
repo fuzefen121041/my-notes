@@ -7,8 +7,8 @@ export const revalidate = 0;
 
 type Params = { category: string; slug?: string[] };
 
-export default async function Page({ params }: { params: Params }) {
-  const p = params;
+export default async function Page({ params }: { params: Promise<Params> }) {
+  const p = await params;
   const category = decodeURIComponent(p.category);
   const sidebar = await getSidebarForCategory(category);
   if (!p.slug || p.slug.length === 0) {

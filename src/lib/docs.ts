@@ -152,8 +152,8 @@ export async function getSidebar(): Promise<NavItem[]> {
   return items;
 }
 
-export function findFirstDocSlug(): string[] | null {
-  const sidebar = getSidebar();
+export async function findFirstDocSlug(): Promise<string[] | null> {
+  const sidebar = await getSidebar();
   function findLeaf(items: NavItem[]): string[] | null {
     for (const item of items) {
       if (item.children && item.children.length) {

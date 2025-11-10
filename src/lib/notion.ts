@@ -41,7 +41,7 @@ export async function getNotionDoc(pageId: string): Promise<NotionDoc | null> {
 export async function listNotionDatabase(databaseId: string): Promise<{ id: string; title: string }[]> {
   const client = getClient();
   if (!client) return [];
-  const res = await client.databases.query({ database_id: databaseId });
+  const res: any = await (client as any).databases.query({ database_id: databaseId });
   const items: { id: string; title: string }[] = [];
   for (const r of res.results as any[]) {
     const id = r.id;

@@ -7,10 +7,10 @@ export const revalidate = 0;
 
 type Params = { slug?: string[] };
 
-export default async function Page({ params }: { params: Params }) {
-  const p = params;
+export default async function Page({ params }: { params: Promise<Params> }) {
+  const p = await params;
   if (!p.slug || p.slug.length === 0) {
-    const first = findFirstDocSlug();
+    const first = await findFirstDocSlug();
     if (first) {
       const encoded = first.map((s) => encodeURIComponent(s)).join('/');
       redirect(`/docs/${encoded}`);
